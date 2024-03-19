@@ -15,24 +15,7 @@ const getInitialContacts = () => {
 };
 
 export default function App() {
-  const [contacts, setContacts] = useState(getInitialContacts);
-  const [filter, setFilter] = useState('');
-
-  const addContact = newContact => {
-    setContacts(prevContscts => {
-      return [...prevContscts, newContact];
-    });
-  };
-
-  const deleteContact = contactId => {
-    setContacts(prevContscts => {
-      return prevContscts.filter(contact => contact.id !== contactId);
-    });
-  };
-
-  const visibleContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const [contacts] = useState(getInitialContacts);
 
   useEffect(() => {
     localStorage.setItem('saved-contacts', JSON.stringify(contacts));
@@ -41,9 +24,9 @@ export default function App() {
   return (
     <div className={css.container}>
       <h1>Phonebook</h1>
-      <ContactForm addContact={addContact} />
-      <SearchBox value={filter} onFilter={setFilter} />
-      <ContactList contacts={visibleContacts} onDelete={deleteContact} />
+      <ContactForm />
+      <SearchBox />
+      <ContactList />
     </div>
   );
 }
